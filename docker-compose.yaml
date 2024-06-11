@@ -1,16 +1,24 @@
-version: '3.7'
+version: "3.8"
 services:
   jenkins:
     build: jenkins
-    env_file:
-      - jenkins.env
+    env_file: jenkins.env
     ports:
       - 8080:8080
       - 50000:50000
     container_name: jenkins
+    networks:
+      - jenkins
     volumes:
       - jenkins_home:/var/jenkins_home
       - ./jenkins/casc.yaml:/var/jenkins_home/casc.yaml
+      - /var/run/docker.sock:/var/run/docker.sock
 
+networks:
+  jenkins:
+    name: jenkins
+    driver: bridge
 volumes:
   jenkins_home:
+    name: jenkins_home
+    driver: local
