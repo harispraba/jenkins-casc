@@ -14,7 +14,8 @@ RUN add-apt-repository \
     $(lsb_release -cs) stable"
 RUN apt-get update && apt-get install -y docker-ce-cli
 
-USER jenkins
+RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.52.1
+
 COPY casc.yaml /var/jenkins_home/casc.yaml
 RUN jenkins-plugin-cli --plugins \
     "workflow-aggregator:latest workflow-multibranch:latest git:latest saferestart:latest kubernetes:latest configuration-as-code:latest matrix-auth:latest authorize-project:latest logstash:latest blueocean:latest"

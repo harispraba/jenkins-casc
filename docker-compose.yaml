@@ -12,7 +12,18 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
       - ./jenkins/casc.yaml:/var/jenkins_home/casc.yaml
-      - /var/run/docker.sock:/var/run/docker.sock
+      - docker:/var/run/
+    depends_on:
+      - dind
+
+  dind:
+    image: docker:20.10-dind
+    container_name: dind
+    privileged: true
+    volumes:
+      - docker:/var/run/
+    networks:
+      - jenkins
 
 networks:
   jenkins:
@@ -21,4 +32,7 @@ networks:
 volumes:
   jenkins_home:
     name: jenkins_home
+    driver: local
+  docker:
+    name: docker
     driver: local
