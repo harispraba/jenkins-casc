@@ -16,6 +16,11 @@ services:
       - docker:/var/run/
     depends_on:
       - dind
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/login"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   dind:
     image: docker:20.10-dind
@@ -26,6 +31,11 @@ services:
       - docker:/var/run/
     networks:
       - jenkins
+    healthcheck:
+      test: ["CMD-SHELL", "docker info"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   db:
     image: postgres:16
@@ -39,6 +49,11 @@ services:
       - POSTGRES_DB=sonar
     volumes:
       - postgresql:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sonar"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   sonarqube:
     image: sonarqube:9.9.5-community
@@ -59,6 +74,11 @@ services:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_extensions:/opt/sonarqube/extensions
       - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 networks:
   jenkins:
