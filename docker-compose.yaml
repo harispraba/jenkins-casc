@@ -3,6 +3,7 @@ services:
   jenkins:
     build: jenkins
     env_file: jenkins.env
+    restart: always
     ports:
       - 8080:8080
       - 50000:50000
@@ -19,6 +20,7 @@ services:
   dind:
     image: docker:20.10-dind
     container_name: dind
+    restart: always
     privileged: true
     volumes:
       - docker:/var/run/
@@ -41,6 +43,7 @@ services:
   sonarqube:
     image: sonarqube:9.9.5-community
     container_name: sonarqube
+    restart: always
     ports:
       - 9000:9000
     networks:
