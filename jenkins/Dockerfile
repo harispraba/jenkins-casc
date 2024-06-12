@@ -20,6 +20,10 @@ RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-s
     mv sonar-scanner-6.0.0.4432-linux /opt/sonar-scanner &&\
     rm sonar-scanner-cli-6.0.0.4432-linux.zip
 
+RUN apt-get update && apt-get install -y curl &&\
+    curl -sL https://deb.nodesource.com/setup_22.x | bash - &&\
+    apt-get install -y nodejs
+
 RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
     chmod +x /usr/bin/yq
 
