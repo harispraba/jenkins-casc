@@ -31,4 +31,4 @@ RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/
 
 COPY casc.yaml /var/jenkins_home/casc.yaml
 RUN jenkins-plugin-cli --plugins \
-    "ssh-agent:367.vf9076cd4ee21 sonar:2.17.2 workflow-aggregator:latest workflow-multibranch:latest git:latest saferestart:latest kubernetes:latest configuration-as-code:latest matrix-auth:latest authorize-project:latest logstash:latest blueocean:latest"
+    "ssh-agent:367.vf9076cd4ee21 sonar:2.17.2 docker-workflow:latest workflow-aggregator:latest workflow-multibranch:latest git:latest saferestart:latest kubernetes:latest configuration-as-code:latest matrix-auth:latest authorize-project:latest logstash:latest blueocean:latest"
